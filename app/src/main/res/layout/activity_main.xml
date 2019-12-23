@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp">
             <TextView
-                android:id="@+id/coinSum"
+                android:id="@+id/coinSumBackground"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
@@ -34,13 +34,25 @@
                 android:background="@drawable/shape_textview"
                 android:gravity="center"
                 android:text="TEST"
-                android:textColor="#ffffff"
                 android:textSize="20sp"
                 />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/coin"/>
+            <TextView
+                android:id="@+id/coinSum"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="9999"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                />
         </FrameLayout>
     </LinearLayout>
 
