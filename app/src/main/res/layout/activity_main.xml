@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/mainBackground"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:src="@drawable/menu"/>
+        <ImageView
+            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:src="@drawable/person"/>
+        <FrameLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="30dp">
+            <TextView
+                android:id="@+id/coinSum"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_textview"
+                android:gravity="center"
+                android:text="TEST"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/coin"/>
+        </FrameLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
