@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawlayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:background="@color/mainBackground"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <ImageView
+            android:layout_marginTop="5dp"
+            android:id="@+id/leftMenuButton"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="30dp"
@@ -19,9 +24,10 @@
         <ImageView
             android:layout_weight="6"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@drawable/person"/>
+            android:layout_height="40dp"
+            android:src="@drawable/title"/>
         <FrameLayout
+            android:layout_marginTop="5dp"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="30dp">
@@ -56,5 +62,90 @@
         </FrameLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:text="开始种树吧！"
+        />
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/base"
+            android:layout_width="400dp"
+            android:layout_height="500dp"
+            android:layout_centerInParent="true"
+            android:scaleY="0.6"
+            android:scaleX="0.6"
+            android:scaleType="centerInside"
+            android:src="@drawable/plant_ball_christmas"
+            />
+        <com.example.android_forest_app.view.processBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/processBar"
+            android:layout_width="400dp"
+            android:layout_height="500dp"
+            android:layout_centerInParent="true"
 
-</LinearLayout>
+            app:circleBackGround="@color/lightYellow"
+            app:pointRadius="4dp"
+            app:pointWidth="2dp"
+            app:roundColor="@color/darkYellow"
+            app:roundProgressColor="@color/lightGreen"
+            app:roundWidth="10dip"
+            app:textColor="#AAFFFFFF"
+            app:textSize="50sp"/>
+        <ImageView
+            android:id="@+id/tree"
+            android:layout_width="400dp"
+            android:layout_height="500dp"
+            android:layout_alignBottom="@+id/base"
+            android:layout_marginBottom="20dp"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:scaleType="center"
+            android:src="@drawable/starburst7"
+            />
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_centerInParent="true"
+            android:background="@color/lightGreen"
+            android:text="开始"
+            android:textColor="#111111"
+            />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
+            android:layout_centerInParent="true"
+            android:background="@color/darkBackground"
+            android:text="取消"
+            android:textColor="#111111"
+            />
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/leftMenu"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/leftmenu"
+        app:menu="@menu/leftmenu_item"
+        />
+</androidx.drawerlayout.widget.DrawerLayout>
