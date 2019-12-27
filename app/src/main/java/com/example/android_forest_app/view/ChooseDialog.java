@@ -24,7 +24,7 @@ public class ChooseDialog extends Dialog {
     private starOnClickListener starClick;
 
     public ChooseDialog(Context context){
-        super(context, R.style.ChooseDialog);
+        super(context, R.style.Dialog);
         this.context = context;
     }
 

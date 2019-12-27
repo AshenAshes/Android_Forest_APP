@@ -104,7 +104,7 @@ public class processBar extends View {
         // paint.setTypeface(Typeface.DEFAULT); //设置字体
         String textTime = getTimeText(progress);
         float textWidth = paint.measureText(textTime);   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
-        canvas.drawText(textTime, centerX - textWidth / 2, 160 + radius + centerY + textSize/2, paint);
+//        canvas.drawText(textTime, centerX - textWidth / 2, 160 + radius + centerY + textSize/2, paint);
 
         // 画Thumb
         canvas.save();
