@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private int coinNum;
 
     private TextView mCoinSum;
+    private TextView mHintText;
     private DrawerLayout mDrawerLayout;
     private NavigationView mLeftMenu;
     private ImageView mLeftMenuButton;
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         mCoinSum = findViewById(R.id.coinSum);
         mCoinSum.setText(coinNum+"");
+        mHintText = findViewById(R.id.hintText);
         mDrawerLayout = findViewById(R.id.drawlayout);
         mLeftMenu = findViewById(R.id.leftMenu);
         mLeftMenuButton = findViewById(R.id.leftMenuButton);
@@ -224,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mBase.setClickable(false);
+                mHintText.setText("不要玩手机啦！");
                 flagLock = true;
                 mProcessBar.setflagLock(flagLock);
                 mProcessBar.invalidate();
@@ -243,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mBase.setClickable(true);
+                mHintText.setText("开始种树吧！");
                 flagLock = false;
                 mProcessBar.setflagLock(flagLock);
                 mProcessBar.invalidate();
@@ -313,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
 
                     flagDanger = false;
                     mBase.setClickable(true);
+                    mHintText.setText("开始种树吧！");
                     //其余交给onResume()处理
                 }
                 else{
@@ -325,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 mBase.setClickable(true);
+                mHintText.setText("开始种树吧！");
                 flagLock=false;
                 mProcessBar.setflagLock(flagLock);
                 mProcessBar.invalidate();

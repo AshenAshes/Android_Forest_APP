@@ -1,16 +1,21 @@
 package com.example.android_forest_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class TreeDeadActivity extends AppCompatActivity {
+    private int coinNum;
+    private TextView coinSum;
     private ImageView backButton;
     private ImageView tree;
     private String choose;
@@ -20,6 +25,11 @@ public class TreeDeadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treedead);
 
+        SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
+        coinNum = preferences.getInt("coinSum",0);
+
+        coinSum = findViewById(R.id.coinSum);
+        coinSum.setText(coinNum+"");
         tree = findViewById(R.id.tree);
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
