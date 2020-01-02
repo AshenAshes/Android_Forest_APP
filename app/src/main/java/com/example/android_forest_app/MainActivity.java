@@ -44,6 +44,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 public class MainActivity extends AppCompatActivity {
     private static final String APP_PACKAGE_NAME = "com.example.android_forest_app";
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private String channelID = "treeDead";
     private String channelName = "枯死通知";
     private int importance = NotificationManager.IMPORTANCE_HIGH;
-    private int timeLimit = 5;         //10s
+    private int timeLimit = 5;         //8s
 
     private static boolean flagActivityCreated = false;
     private static boolean flagLock;
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick() {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    intent.setComponent( new ComponentName("com.android.settings", "com.android.settings.Settings$SecuritySettingsActivity"));
+                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$SecuritySettingsActivity"));
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
@@ -168,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("debug","onResume called");
         Log.d("debug:","flagActivityCreated:"+flagActivityCreated);
 
-        //Activity被创建
-        if(!flagActivityCreated)
-            flagActivityCreated = true;
-        else{
+            //Activity被创建
+            if(!flagActivityCreated)
+                flagActivityCreated = true;
+            else{
             if(timeLimit == 0) {
                 timeLimit = 5;
                 Intent intent = new Intent(MainActivity.this, TreeDeadActivity.class);
@@ -259,6 +261,11 @@ public class MainActivity extends AppCompatActivity {
                 mStartButton2.setVisibility(View.VISIBLE);
                 setTimeText(progress);
                 update(choose, progress);
+
+                Intent intent = new Intent(MainActivity.this, TreeDeadActivity.class);
+                intent.putExtra("choose", choose);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
@@ -343,6 +350,9 @@ public class MainActivity extends AppCompatActivity {
 
                 SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
                 Editor editor = preferences.edit();
+                //every minute, you can get a coin
+//                coinNum += growProgress/60;
+                //for test
                 coinNum += growProgress;
                 editor.putInt("coinSum",coinNum);
                 editor.commit();
@@ -440,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if((mPackageInfo.applicationInfo.flags & mPackageInfo.applicationInfo.FLAG_SYSTEM) <= 0){
-            //进入第三方应用
+            //第三方应用
             flag = true;
         }
         //否则是系统应用
