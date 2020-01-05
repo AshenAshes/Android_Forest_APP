@@ -1,6 +1,7 @@
 package com.example.android_forest_app;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,17 +12,21 @@ import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +35,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android_forest_app.db.TodoContract;
+import com.example.android_forest_app.db.TodoDbHelper;
+import com.example.android_forest_app.ui.DateFormatUtils;
 import com.example.android_forest_app.view.ChooseDialog;
 import com.example.android_forest_app.view.PermissionDialog;
 import com.example.android_forest_app.view.processBar;
 import com.example.android_forest_app.service.notificationBroadcastReceiver;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Calendar;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
@@ -65,14 +75,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mTree;
     private TextView mTimeText;
     private ChooseDialog mChooseDialog;
-    private String choose;
+    private String choose;  //树种：starBurst   star     time
     private int progress;
     private int timerProgress;
     private int growProgress;
     private int minute;
     private int second;
     private CountDownTimer timer;
-
+    private String sche;
+    private TodoDbHelper dbHelper;
+    private SQLiteDatabase database;
     //Permission
     private PermissionDialog mPermissionDialog;
 
@@ -87,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private String channelName = "枯死通知";
     private int importance = NotificationManager.IMPORTANCE_HIGH;
     private int timeLimit = 5;         //8s
-
+    int level;
     private static boolean flagActivityCreated = false;
     private static boolean flagLock;
     private static boolean flagDanger = false;
@@ -123,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
         timerProgress = progress;
         SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
         coinNum = preferences.getInt("coinSum",0);
-
+        dbHelper = new TodoDbHelper(this);
+        database = dbHelper.getWritableDatabase();
         mCoinSum = findViewById(R.id.coinSum);
         mCoinSum.setText(coinNum+"");
         mHintText = findViewById(R.id.hintText);
@@ -224,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //开始种植
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
                 mStartButton2.setVisibility(View.GONE);
                 timerProgress = progress;
                 growProgress = progress-timerProgress;
+                long nowtime = Calendar.getInstance().getTimeInMillis();
+                sche = DateFormatUtils.long2Str(nowtime,true);
                 //progress is the second sum
                 createLockTimer();
                 timer.start();
@@ -261,6 +277,16 @@ public class MainActivity extends AppCompatActivity {
                 mStartButton2.setVisibility(View.VISIBLE);
                 setTimeText(progress);
                 update(choose, progress);
+
+                boolean succeed = saveNote2Database(choose+level,sche, "0");
+                if (succeed) {
+                    Toast.makeText(MainActivity.this,
+                            "Note added", Toast.LENGTH_SHORT).show();
+                    setResult(Activity.RESULT_OK);
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "Error", Toast.LENGTH_SHORT).show();
+                }
 
                 Intent intent = new Intent(MainActivity.this, TreeDeadActivity.class);
                 intent.putExtra("choose", choose);
@@ -326,6 +352,17 @@ public class MainActivity extends AppCompatActivity {
                     mBase.setClickable(true);
                     mHintText.setText("开始种树吧！");
                     //其余交给onResume()处理
+
+                    boolean succeed = saveNote2Database(choose+level,sche, "0");
+                    if (succeed) {
+                        Toast.makeText(MainActivity.this,
+                                "Note added", Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK);
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                "Error", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else{
                     if(mTimeText!=null)     //使得进入其他activity时不出错
@@ -335,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            //完成种植
             public void onFinish() {
                 mBase.setClickable(true);
                 mHintText.setText("开始种树吧！");
@@ -357,6 +395,16 @@ public class MainActivity extends AppCompatActivity {
                 editor.putInt("coinSum",coinNum);
                 editor.commit();
                 mCoinSum.setText(coinNum+"");
+                //TODO
+                boolean succeed = saveNote2Database(choose+level,sche, "1");
+                if (succeed) {
+                    Toast.makeText(MainActivity.this,
+                            "Note added", Toast.LENGTH_SHORT).show();
+                    setResult(Activity.RESULT_OK);
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "Error", Toast.LENGTH_SHORT).show();
+                }
             }
         };
     }
@@ -471,8 +519,9 @@ public class MainActivity extends AppCompatActivity {
             mTimeText.setText(minute+":"+second);
     }
 
+    //决定显示什么树和树的生长阶段
     private void update(String treeName, int progress){
-        int level;
+
         int minute = progress/60;
         if(minute<1)
             level = 1;
@@ -551,4 +600,24 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         manager.notify(1, notification);
     }
+
+    public Boolean saveNote2Database(String title, String scheduled, String state){
+
+        if(database==null){
+            return false;
+        }
+        long nowtime = Calendar.getInstance().getTimeInMillis();
+        String deadline = DateFormatUtils.long2Str(nowtime,true);
+        String time = DateFormatUtils.long2Str(nowtime-DateFormatUtils.str2Long(scheduled,true),true);
+        ContentValues values = new ContentValues();
+        values.put(TodoContract.TodoNote.COLUMN_DEADLINE, deadline);
+        values.put(TodoContract.TodoNote.COLUMN_STATE,state);
+        values.put(TodoContract.TodoNote.COLUMN_SCHEDULED,scheduled);
+        values.put(TodoContract.TodoNote.COLUMN_TIME,time);
+        values.put(TodoContract.TodoNote.COLUMN_CAPTION,title);
+        long rowId = database.insert(TodoContract.TodoNote.TABLE_NAME, null, values);
+        return rowId!=-1;
+    }
+
+
 }
