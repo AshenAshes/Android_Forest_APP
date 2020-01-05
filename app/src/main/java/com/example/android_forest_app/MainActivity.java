@@ -308,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_forest:
                         break;
                     case R.id.menu_timeline:
+                        Intent intent = new Intent(MainActivity.this,TimeActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.menu_tag:
                         break;
