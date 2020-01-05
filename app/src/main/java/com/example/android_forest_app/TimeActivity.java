@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -72,8 +73,7 @@ public class TimeActivity extends AppCompatActivity {
         try {
             cursor = database.query(TodoContract.TodoNote.TABLE_NAME, null,
                     null, null,
-                    null, null,
-                    TodoContract.TodoNote.COLUMN_DEADLINE+" DEC");
+                    null, null,null);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(TodoContract.TodoNote._ID));
                 String caption = cursor.getString(cursor.getColumnIndex(TodoContract.TodoNote.COLUMN_CAPTION));
@@ -87,6 +87,7 @@ public class TimeActivity extends AppCompatActivity {
                 note.setDeadline(deadline);
                 note.setScheduled(scheduled);
                 note.setTime(time);
+                //Log.d("data",scheduled+","+caption+","+deadline+","+intState);
                 result.add(note);
             }
         } finally {

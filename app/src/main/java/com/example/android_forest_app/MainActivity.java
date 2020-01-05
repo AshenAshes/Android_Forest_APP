@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                 setTimeText(progress);
                 update(choose, progress);
 
-                boolean succeed = saveNote2Database(choose+level,sche, "0");
+                boolean succeed = saveNote2Database(choose+level,sche,"0", "0");
                 if (succeed) {
                     Toast.makeText(MainActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                     mHintText.setText("开始种树吧！");
                     //其余交给onResume()处理
 
-                    boolean succeed = saveNote2Database(choose+level,sche, "0");
+                    boolean succeed = saveNote2Database(choose+level,sche, "0","0");
                     if (succeed) {
                         Toast.makeText(MainActivity.this,
                                 "Note added", Toast.LENGTH_SHORT).show();
@@ -397,8 +397,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.putInt("coinSum",coinNum);
                 editor.commit();
                 mCoinSum.setText(coinNum+"");
-                //TODO
-                boolean succeed = saveNote2Database(choose+level,sche, "1");
+                //TODO 把设置的时间给time
+                String time = "4s";
+                boolean succeed = saveNote2Database(choose+level,sche, time,"1");
                 if (succeed) {
                     Toast.makeText(MainActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();
@@ -603,14 +604,13 @@ public class MainActivity extends AppCompatActivity {
         manager.notify(1, notification);
     }
 
-    public Boolean saveNote2Database(String title, String scheduled, String state){
+    public Boolean saveNote2Database(String title, String scheduled, String time, String state){
 
         if(database==null){
             return false;
         }
         long nowtime = Calendar.getInstance().getTimeInMillis();
         String deadline = DateFormatUtils.long2Str(nowtime,true);
-        String time = DateFormatUtils.long2Str(nowtime-DateFormatUtils.str2Long(scheduled,true),true);
         ContentValues values = new ContentValues();
         values.put(TodoContract.TodoNote.COLUMN_DEADLINE, deadline);
         values.put(TodoContract.TodoNote.COLUMN_STATE,state);

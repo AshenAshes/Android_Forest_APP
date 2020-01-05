@@ -47,4 +47,20 @@
         android:textSize="18sp"
         tools:text="content"/>
 
+    <ImageView
+        android:id="@+id/item_ball"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/item_image"
+        android:layout_marginTop="12dp" />
+
+    <ImageView
+        android:id="@+id/item_tree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/item_image"
+        android:layout_marginTop="-54dp" />
+
 </RelativeLayout>

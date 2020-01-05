@@ -1,5 +1,6 @@
 package com.example.android_forest_app.ui;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,40 +22,93 @@ public class NoteViewHolder extends RecyclerView.ViewHolder{
 
     public NoteViewHolder(@NonNull View itemView) {
         super(itemView);
+        item_time = itemView.findViewById(R.id.item_time);
         item_id = itemView.findViewById(R.id.item_id);
         item_image = itemView.findViewById(R.id.item_image);
         item_content = itemView.findViewById(R.id.item_content);
-        item_image = itemView.findViewById(R.id.item_image);
         item_tree = itemView.findViewById(R.id.item_tree);
         item_ball = itemView.findViewById(R.id.item_ball);
     }
 
     public void bind(final Note note){
-        item_id.setText(note.getID()+"");
-        item_time.setText(note.getScheduled()+"~"+note.getDeadline());
-        item_content.setText("成功种下一颗"+note.getTime()+"的"+note.getCaption());
-        switch(note.getCaption()){
-            case "starBurst1": item_tree.setImageResource(R.drawable.starburst1); break;
-            case "starBurst2": item_tree.setImageResource(R.drawable.starburst2); break;
-            case "starBurst3": item_tree.setImageResource(R.drawable.starburst3); break;
-            case "starBurst4": item_tree.setImageResource(R.drawable.starburst4); break;
-            case "starBurst5": item_tree.setImageResource(R.drawable.starburst5); break;
-            case "starBurst6": item_tree.setImageResource(R.drawable.starburst6); break;
-            case "starBurst7": item_tree.setImageResource(R.drawable.starburst7); break;
-            case "time1": item_tree.setImageResource(R.drawable.time1); break;
-            case "time2": item_tree.setImageResource(R.drawable.time2); break;
-            case "time3": item_tree.setImageResource(R.drawable.time3); break;
-            case "time4": item_tree.setImageResource(R.drawable.time4); break;
-            case "time5": item_tree.setImageResource(R.drawable.time5); break;
-            case "time6": item_tree.setImageResource(R.drawable.time6); break;
-            case "time7": item_tree.setImageResource(R.drawable.time7); break;
-            case "star1": item_tree.setImageResource(R.drawable.star1); break;
-            case "star2": item_tree.setImageResource(R.drawable.star2); break;
-            case "star3": item_tree.setImageResource(R.drawable.star3); break;
-            case "star4": item_tree.setImageResource(R.drawable.star4); break;
-            case "star5": item_tree.setImageResource(R.drawable.star5); break;
-            case "star6": item_tree.setImageResource(R.drawable.star6); break;
-            case "star7": item_tree.setImageResource(R.drawable.star7); break;
+        Log.d("data",note.getScheduled()+","+note.getCaption()+","+note.getDeadline()+","+note.getTime());
+        item_id.setText((CharSequence) (note.getID()+""));
+
+        switch (note.getState()) {
+            case"1":
+                String con = note.getScheduled()+"~"+note.getDeadline();
+                item_time.setText(con);
+                String tex = "成功种下一颗"+note.getTime()+"的"+note.getCaption().substring(0,note.getCaption().length()-1);
+                item_content.setText(tex);
+                switch (note.getCaption()) {
+                    case "starBurst1":
+                        item_tree.setImageResource(R.drawable.starburst1);
+                        break;
+                    case "starBurst2":
+                        item_tree.setImageResource(R.drawable.starburst2);
+                        break;
+                    case "starBurst3":
+                        item_tree.setImageResource(R.drawable.starburst3);
+                        break;
+                    case "starBurst4":
+                        item_tree.setImageResource(R.drawable.starburst4);
+                        break;
+                    case "starBurst5":
+                        item_tree.setImageResource(R.drawable.starburst5);
+                        break;
+                    case "starBurst6":
+                        item_tree.setImageResource(R.drawable.starburst6);
+                        break;
+                    case "starBurst7":
+                        item_tree.setImageResource(R.drawable.starburst7);
+                        break;
+                    case "time1":
+                        item_tree.setImageResource(R.drawable.time1);
+                        break;
+                    case "time2":
+                        item_tree.setImageResource(R.drawable.time2);
+                        break;
+                    case "time3":
+                        item_tree.setImageResource(R.drawable.time3);
+                        break;
+                    case "time4":
+                        item_tree.setImageResource(R.drawable.time4);
+                        break;
+                    case "time5":
+                        item_tree.setImageResource(R.drawable.time5);
+                        break;
+                    case "time6":
+                        item_tree.setImageResource(R.drawable.time6);
+                        break;
+                    case "time7":
+                        item_tree.setImageResource(R.drawable.time7);
+                        break;
+                    case "star1":
+                        item_tree.setImageResource(R.drawable.star1);
+                        break;
+                    case "star2":
+                        item_tree.setImageResource(R.drawable.star2);
+                        break;
+                    case "star3":
+                        item_tree.setImageResource(R.drawable.star3);
+                        break;
+                    case "star4":
+                        item_tree.setImageResource(R.drawable.star4);
+                        break;
+                    case "star5":
+                        item_tree.setImageResource(R.drawable.star5);
+                        break;
+                    case "star6":
+                        item_tree.setImageResource(R.drawable.star6);
+                        break;
+                    case "star7":
+                        item_tree.setImageResource(R.drawable.star7);
+                        break;
+                }
+                break;
+            case "0":
+                item_time.setText(note.getScheduled());
+                item_content.setText("种植失败！");
         }
     }
 }
