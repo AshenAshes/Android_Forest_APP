@@ -6,7 +6,7 @@ public class Note {
     private String scheduled;   //事件的记录日期
     private String state;       //事件的状态,分为Todo,Done和None
     private String caption;     //事件的标题
-    private String time;
+    private String time;        //事件的设定时间
 
     public Note(long id) {
         this.id = id;

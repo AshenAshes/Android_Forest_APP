@@ -120,6 +120,8 @@ public class PhotoActivity extends AppCompatActivity implements SurfaceHolder.Ca
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.RECORD_AUDIO}, 100);
         }
+
+
         btn10s = findViewById(R.id.btn_10s);
         btn10s.setOnClickListener(new View.OnClickListener() {
             @Override
