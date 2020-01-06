@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".TimeActivity" />
         <activity android:name=".TreeDeadActivity"/>
+        <activity android:name=".PhotoActivity"/>
         <receiver android:name=".service.notificationBroadcastReceiver"/>
     </application>
 </manifest>
