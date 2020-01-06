@@ -10,7 +10,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ChooseDialog" parent="android:style/Theme.Dialog">
+    <style name="ChooseDialog" parent="android:style/Theme.Dialog"/>
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <!--背景色即透明度-->
         <item name="android:windowBackground">@android:color/transparent</item>
