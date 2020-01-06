@@ -312,6 +312,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.menu_tag:
+                        Intent intent2 = new Intent(MainActivity.this,PhotoActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.menu_store:
                         break;
