@@ -118,7 +118,7 @@ public class PhotoActivity extends AppCompatActivity implements SurfaceHolder.Ca
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.RECORD_AUDIO}, 100);
+                    Manifest.permission.RECORD_AUDIO}, 30);
         }
 
 
@@ -290,6 +290,46 @@ public class PhotoActivity extends AppCompatActivity implements SurfaceHolder.Ca
             }
         });
         btnDelete.setVisibility(View.INVISIBLE);
+
+        btnUpload = findViewById(R.id.btn_upload);
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PhotoActivity.this, PhotoActivity.class);
+                startActivity(intent);
+//                getImageForVideo(videopath, new OnLoadVideoImageListener() {
+//
+//                    @Override
+//                    public void onLoadComplete() {
+//                        MultipartBody.Part coverImagePart = getMultipartFromFile("cover_image", imagepath);
+//                        final MultipartBody.Part videoPart = getMultipartFromFile("video", videopath);
+//                        Call<Response_POST> call = getMiniDouyinService().postVideo("3170101510", "goldfische", coverImagePart, videoPart);
+//                        call.enqueue(new Callback<Response_POST>() {
+//                            @Override
+//                            public void onResponse(Call<Response_POST> call, Response<Response_POST> response) {
+//                                if (response.isSuccessful() && response.body() != null) {
+//                                    Response_POST videos = response.body();
+//                                    if (videos.getSuccess() == true) {
+//                                        Toast.makeText(MainActivity3.this, "Post Successfully!", Toast.LENGTH_SHORT).show();
+//                                        Intent intent = new Intent(MainActivity3.this, MainActivity3.class);
+//                                        startActivity(intent);
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Response_POST> call, Throwable throwable) {
+//                                Toast.makeText(MainActivity3.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(MainActivity3.this, MainActivity3.class);
+//                                startActivity(intent);
+//                            }
+//                        });
+//                    }
+//                });
+
+            }
+        });
+        btnUpload.setVisibility(View.INVISIBLE);
     }
 
     private void takePicture() {
@@ -636,7 +676,7 @@ public class PhotoActivity extends AppCompatActivity implements SurfaceHolder.Ca
         Log.e("test", "onRequestPermissionsResult1: ");
         switch (requestCode) {
             // 相机权限
-            case 100:
+            case 30:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED
                         && grantResults[2] == PackageManager.PERMISSION_GRANTED) {

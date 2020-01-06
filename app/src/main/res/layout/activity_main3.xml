@@ -21,22 +21,22 @@
         <!--android:textColor="@android:color/holo_red_light"-->
         <!--android:layout_centerInParent="true"/>-->
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_LOAD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/material_wave_loading"/>
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/lottie_LOAD"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/material_wave_loading"/>-->
 
-        <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/btn_start"-->
-        <!--android:text="START"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
+<!--        <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_start"-->
+<!--        android:text="START"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"/>-->
         <ImageView
             android:id="@+id/btn_start_out"
             android:scaleX="0.7"
