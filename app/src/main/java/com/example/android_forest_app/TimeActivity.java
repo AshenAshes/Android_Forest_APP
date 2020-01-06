@@ -15,6 +15,7 @@ import com.example.android_forest_app.beans.Note;
 import com.example.android_forest_app.db.TodoContract;
 import com.example.android_forest_app.db.TodoDbHelper;
 import com.example.android_forest_app.ui.NoteListAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -28,31 +29,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TimeActivity extends AppCompatActivity {
-    private Toolbar toolbar;
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
     private TodoDbHelper dbHelper;
     private SQLiteDatabase database;
+    private FloatingActionButton backButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
         dbHelper = new TodoDbHelper(this);
         database = dbHelper.getWritableDatabase();
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(option);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-
-
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         recyclerView = findViewById(R.id.list_todo);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -97,5 +93,4 @@ public class TimeActivity extends AppCompatActivity {
         }
         return result;
     }
-
 }

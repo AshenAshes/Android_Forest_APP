@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     private static boolean flagLock;
     private static boolean flagDanger = false;
 
-    @Override
+   @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -397,8 +397,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.putInt("coinSum",coinNum);
                 editor.commit();
                 mCoinSum.setText(coinNum+"");
+
                 //TODO 把设置的时间给time
-                String time = "4s";
+                String time = progress/60 + "min";
                 boolean succeed = saveNote2Database(choose+level,sche, time,"1");
                 if (succeed) {
                     Toast.makeText(MainActivity.this,

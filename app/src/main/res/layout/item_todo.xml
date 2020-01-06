@@ -32,7 +32,7 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         tools:text="time" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_marginStart="63dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="18sp"
+        android:textSize="16sp"
         tools:text="content"/>
 
     <ImageView
