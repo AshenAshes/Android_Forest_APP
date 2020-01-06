@@ -400,7 +400,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
                 mCoinSum.setText(coinNum+"");
 
-                //TODO 把设置的时间给time
                 String time = progress/60 + "min";
                 boolean succeed = saveNote2Database(choose+level,sche, time,"1");
                 if (succeed) {
