@@ -511,7 +511,7 @@ public class PhotoActivity extends AppCompatActivity implements SurfaceHolder.Ca
 
 //            setPictureSize(mCamera,  useHeight,useWidth);
             mCamera.setDisplayOrientation(mOrientation);
-            int degree = calculateCameraPreviewOrientation(MainActivity3.this);
+            int degree = calculateCameraPreviewOrientation(PhotoActivity.this);
             mCamera.setDisplayOrientation(degree);
             mCamera.startPreview();
         }
