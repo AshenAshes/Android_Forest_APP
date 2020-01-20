@@ -2,7 +2,7 @@
 
 Contributors: **AshenAshes**, **[RUA](https://github.com/GoldfischeRUA)**
 
-This is our Android develop course midterm project, which implements an Org-mode Todolist APP.
+This is our Android develop course final project, which implements an time management app.
 
 &emsp;
 
